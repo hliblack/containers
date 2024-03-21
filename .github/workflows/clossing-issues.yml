@@ -4,9 +4,9 @@
 name: '[Support] Close Solved issues'
 on:
   workflow_dispatch:
-  schedule:
+  #schedule:
     # Hourly
-    - cron: '0 * * * *'
+    #- cron: '0 * * * *'
 # Remove all permissions by default. Actions are performed by Bitnami Bot
 permissions: {}
 jobs:
