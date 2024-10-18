@@ -24,7 +24,7 @@ You can find the available configuration options in the [Environment Variables](
 * All Bitnami images available in Docker Hub are signed with [Notation](https://notaryproject.dev/). [Check this post](https://blog.bitnami.com/2024/03/bitnami-packaged-containers-and-helm.html) to know how to verify the integrity of the images.
 * Bitnami container images are released on a regular basis with the latest distribution packages available.
 
-Looking to use Apache in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the enterprise edition of Bitnami Application Catalog.
+Looking to use Apache in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.
 
 ## How to deploy Apache in Kubernetes?
 
@@ -34,11 +34,11 @@ Bitnami containers can be used with [Kubeapps](https://kubeapps.dev/) for deploy
 
 ## Why use a non-root container?
 
-Non-root container images add an extra layer of security and are generally recommended for production environments. However, because they run as a non-root user, privileged tasks are typically off-limits. Learn more about non-root containers [in our docs](https://docs.bitnami.com/tutorials/work-with-non-root-containers/).
+Non-root container images add an extra layer of security and are generally recommended for production environments. However, because they run as a non-root user, privileged tasks are typically off-limits. Learn more about non-root containers [in our docs](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-work-with-non-root-containers-index.html).
 
 ## Supported tags and respective `Dockerfile` links
 
-Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.bitnami.com/tutorials/understand-rolling-tags-containers/).
+Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-understand-rolling-tags-containers-index.html).
 
 You can see the equivalence between the different tags by taking a look at the `tags-info.yaml` file present in the branch folder, i.e `bitnami/ASSET/BRANCH/DISTRO/tags-info.yaml`.
 
@@ -121,9 +121,11 @@ Access your web server in the browser by navigating to `http://localhost:8080/`.
 
 #### Customizable environment variables
 
-| Name                   | Description                    | Default Value |
-|------------------------|--------------------------------|---------------|
-| `APACHE_SERVER_TOKENS` | Apache ServerTokens directive. | `Prod`        |
+| Name                       | Description                       | Default Value |
+|----------------------------|-----------------------------------|---------------|
+| `APACHE_HTTP_PORT_NUMBER`  | HTTP port number used by Apache.  | `nil`         |
+| `APACHE_HTTPS_PORT_NUMBER` | HTTPS port number used by Apache. | `nil`         |
+| `APACHE_SERVER_TOKENS`     | Apache ServerTokens directive.    | `Prod`        |
 
 #### Read-only environment variables
 
@@ -144,9 +146,7 @@ Access your web server in the browser by navigating to `http://localhost:8080/`.
 | `APACHE_DAEMON_USER`               | Apache system user.                                       | `daemon`                          |
 | `APACHE_DAEMON_GROUP`              | Apache system group.                                      | `daemon`                          |
 | `APACHE_DEFAULT_HTTP_PORT_NUMBER`  | Default Apache HTTP port number to enable at build time.  | `8080`                            |
-| `APACHE_DEFAULT_HTTP_PORT_NUMBER`  | Default Apache HTTP port number to enable at build time.  | `80`                              |
 | `APACHE_DEFAULT_HTTPS_PORT_NUMBER` | Default Apache HTTPS port number to enable at build time. | `8443`                            |
-| `APACHE_DEFAULT_HTTPS_PORT_NUMBER` | Default Apache HTTPS port number to enable at build time. | `443`                             |
 
 When you start the Apache image, you can adjust the configuration of the instance by passing one or more environment variables either on the docker-compose file or on the `docker run` command line. If you want to add a new environment variable:
 

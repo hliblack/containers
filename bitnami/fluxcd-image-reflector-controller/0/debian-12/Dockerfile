@@ -1,4 +1,4 @@
-# Copyright VMware, Inc.
+# Copyright Broadcom, Inc. All Rights Reserved.
 # SPDX-License-Identifier: APACHE-2.0
 
 FROM docker.io/bitnami/minideb:bookworm
@@ -7,13 +7,15 @@ ARG TARGETARCH
 
 LABEL com.vmware.cp.artifact.flavor="sha256:c50c90cfd9d12b445b011e6ad529f1ad3daea45c26d20b00732fae3cd71f6a83" \
       org.opencontainers.image.base.name="docker.io/bitnami/minideb:bookworm" \
-      org.opencontainers.image.created="2024-03-06T15:21:04Z" \
-      org.opencontainers.image.description="Application packaged by VMware, Inc" \
+      org.opencontainers.image.created="2024-10-01T23:59:04Z" \
+      org.opencontainers.image.description="Application packaged by Broadcom, Inc." \
+      org.opencontainers.image.documentation="https://github.com/bitnami/containers/tree/main/bitnami/fluxcd-image-reflector-controller/README.md" \
       org.opencontainers.image.licenses="Apache-2.0" \
-      org.opencontainers.image.ref.name="0.31.2-debian-12-r6" \
+      org.opencontainers.image.ref.name="0.33.0-debian-12-r1" \
+      org.opencontainers.image.source="https://github.com/bitnami/containers/tree/main/bitnami/fluxcd-image-reflector-controller" \
       org.opencontainers.image.title="fluxcd-image-reflector-controller" \
-      org.opencontainers.image.vendor="VMware, Inc." \
-      org.opencontainers.image.version="0.31.2"
+      org.opencontainers.image.vendor="Broadcom, Inc." \
+      org.opencontainers.image.version="0.33.0"
 
 ENV HOME="/" \
     OS_ARCH="${TARGETARCH:-amd64}" \
@@ -26,7 +28,7 @@ SHELL ["/bin/bash", "-o", "errexit", "-o", "nounset", "-o", "pipefail", "-c"]
 RUN install_packages ca-certificates curl procps
 RUN mkdir -p /tmp/bitnami/pkg/cache/ ; cd /tmp/bitnami/pkg/cache/ ; \
     COMPONENTS=( \
-      "fluxcd-image-reflector-controller-0.31.2-3-linux-${OS_ARCH}-debian-12" \
+      "fluxcd-image-reflector-controller-0.33.0-1-linux-${OS_ARCH}-debian-12" \
     ) ; \
     for COMPONENT in "${COMPONENTS[@]}"; do \
       if [ ! -f "${COMPONENT}.tar.gz" ]; then \
@@ -43,7 +45,7 @@ RUN apt-get autoremove --purge -y curl && \
 RUN useradd -r -u 1001 -g root fluxcd-image-reflector-controlle
 RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
 
-ENV APP_VERSION="0.31.2" \
+ENV APP_VERSION="0.33.0" \
     BITNAMI_APP_NAME="fluxcd-image-reflector-controller" \
     PATH="/opt/bitnami/fluxcd-image-reflector-controller/bin:$PATH"
 

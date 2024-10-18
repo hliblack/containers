@@ -22,7 +22,7 @@ docker run --name mongodb bitnami/mongodb:latest
 * All Bitnami images available in Docker Hub are signed with [Notation](https://notaryproject.dev/). [Check this post](https://blog.bitnami.com/2024/03/bitnami-packaged-containers-and-helm.html) to know how to verify the integrity of the images.
 * Bitnami container images are released on a regular basis with the latest distribution packages available.
 
-Looking to use MongoDB&reg; in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the enterprise edition of Bitnami Application Catalog.
+Looking to use MongoDB&reg; in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.
 
 ## How to deploy MongoDB&reg; in Kubernetes?
 
@@ -32,11 +32,11 @@ Bitnami containers can be used with [Kubeapps](https://kubeapps.dev/) for deploy
 
 ## Why use a non-root container?
 
-Non-root container images add an extra layer of security and are generally recommended for production environments. However, because they run as a non-root user, privileged tasks are typically off-limits. Learn more about non-root containers [in our docs](https://docs.bitnami.com/tutorials/work-with-non-root-containers/).
+Non-root container images add an extra layer of security and are generally recommended for production environments. However, because they run as a non-root user, privileged tasks are typically off-limits. Learn more about non-root containers [in our docs](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-work-with-non-root-containers-index.html).
 
 ## Supported tags and respective `Dockerfile` links
 
-Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.bitnami.com/tutorials/understand-rolling-tags-containers/).
+Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-understand-rolling-tags-containers-index.html).
 
 You can see the equivalence between the different tags by taking a look at the `tags-info.yaml` file present in the branch folder, i.e `bitnami/ASSET/BRANCH/DISTRO/tags-info.yaml`.
 
@@ -166,23 +166,46 @@ docker-compose up -d
 
 #### Customizable environment variables
 
-| Name                                   | Description                                                                                   | Default Value                       |
-|----------------------------------------|-----------------------------------------------------------------------------------------------|-------------------------------------|
-| `MONGODB_MOUNTED_CONF_DIR`             | Directory for including custom configuration files (that override the default generated ones) | `${MONGODB_VOLUME_DIR}/conf`        |
-| `MONGODB_INIT_RETRY_ATTEMPTS`          | Maximum retries for checking the service initialization status                                | `7`                                 |
-| `MONGODB_INIT_RETRY_DELAY`             | Time (in seconds) to wait between retries for checking the service initialization status      | `5`                                 |
-| `MONGODB_PORT_NUMBER`                  | MongoDB port                                                                                  | `$MONGODB_DEFAULT_PORT_NUMBER`      |
-| `MONGODB_ENABLE_MAJORITY_READ`         | Enable majority read in MongoDB operations                                                    | `true`                              |
-| `MONGODB_DEFAULT_ENABLE_MAJORITY_READ` | Enable majority read in MongoDB operations set at build time                                  | `true`                              |
-| `MONGODB_ENABLE_NUMACTL`               | Execute commands using numactl                                                                | `false`                             |
-| `MONGODB_ADVERTISE_IP`                 | Whether advertised hostname is set to container ip                                            | `false`                             |
-| `MONGODB_DISABLE_JAVASCRIPT`           | Disable MongoDB server-side javascript execution                                              | `no`                                |
-| `MONGODB_ROOT_USER`                    | User name for the MongoDB root user                                                           | `root`                              |
-| `ALLOW_EMPTY_PASSWORD`                 | Permit accessing MongoDB without setting any password                                         | `no`                                |
-| `MONGODB_REPLICA_SET_NAME`             | Name of the MongoDB replica set                                                               | `$MONGODB_DEFAULT_REPLICA_SET_NAME` |
-| `MONGODB_INITIAL_PRIMARY_PORT_NUMBER`  | Port of the replica set primary node (necessary for arbiter and secondary nodes)              | `27017`                             |
-| `MONGODB_INITIAL_PRIMARY_ROOT_USER`    | Primary node root username (necessary for arbiter and secondary nodes)                        | `root`                              |
-| `MONGODB_SET_SECONDARY_OK`             | Mark node as readable. Necessary for cases where the PVC is lost                              | `no`                                |
+| Name                                    | Description                                                                                                                                    | Default Value                       |
+|-----------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
+| `MONGODB_MOUNTED_CONF_DIR`              | Directory for including custom configuration files (that override the default generated ones)                                                  | `${MONGODB_VOLUME_DIR}/conf`        |
+| `MONGODB_INIT_RETRY_ATTEMPTS`           | Maximum retries for checking the service initialization status                                                                                 | `7`                                 |
+| `MONGODB_INIT_RETRY_DELAY`              | Time (in seconds) to wait between retries for checking the service initialization status                                                       | `5`                                 |
+| `MONGODB_PORT_NUMBER`                   | MongoDB port                                                                                                                                   | `$MONGODB_DEFAULT_PORT_NUMBER`      |
+| `MONGODB_ENABLE_MAJORITY_READ`          | Enable majority read in MongoDB operations                                                                                                     | `true`                              |
+| `MONGODB_DEFAULT_ENABLE_MAJORITY_READ`  | Enable majority read in MongoDB operations set at build time                                                                                   | `true`                              |
+| `MONGODB_EXTRA_FLAGS`                   | Extra flags for MongoDB initialization                                                                                                         | `nil`                               |
+| `MONGODB_ENABLE_NUMACTL`                | Execute commands using numactl                                                                                                                 | `false`                             |
+| `MONGODB_SHELL_EXTRA_FLAGS`             | Extra flags when using the mongodb client during initialization (useful when mounting init scripts)                                            | `nil`                               |
+| `MONGODB_ADVERTISED_HOSTNAME`           | Hostname to use for advertising the MongoDB service                                                                                            | `nil`                               |
+| `MONGODB_ADVERTISE_IP`                  | Whether advertised hostname is set to container ip                                                                                             | `false`                             |
+| `MONGODB_ADVERTISED_PORT_NUMBER`        | MongoDB advertised port number. It is recommended to pass this environment variable if you have a proxy port forwarding requests to container. | `nil`                               |
+| `MONGODB_DISABLE_JAVASCRIPT`            | Disable MongoDB server-side javascript execution                                                                                               | `no`                                |
+| `MONGODB_ENABLE_JOURNAL`                | Enable MongoDB journal                                                                                                                         | `nil`                               |
+| `MONGODB_DISABLE_SYSTEM_LOG`            | Disable MongoDB daemon system log                                                                                                              | `nil`                               |
+| `MONGODB_ENABLE_DIRECTORY_PER_DB`       | Use a separate folder for storing each database data                                                                                           | `nil`                               |
+| `MONGODB_ENABLE_IPV6`                   | Use IPv6 for database connections                                                                                                              | `nil`                               |
+| `MONGODB_SYSTEM_LOG_VERBOSITY`          | MongoDB daemon log level                                                                                                                       | `nil`                               |
+| `MONGODB_ROOT_USER`                     | User name for the MongoDB root user                                                                                                            | `root`                              |
+| `MONGODB_ROOT_PASSWORD`                 | Password for the MongoDB root user                                                                                                             | `nil`                               |
+| `MONGODB_USERNAME`                      | User to generate at initialization time                                                                                                        | `nil`                               |
+| `MONGODB_PASSWORD`                      | Password for the non-root user specified in MONGODB_USERNAME                                                                                   | `nil`                               |
+| `MONGODB_DATABASE`                      | Name of the database to create at initialization time                                                                                          | `nil`                               |
+| `MONGODB_METRICS_USERNAME`              | User used for metrics collection, for example with mongodb_exporter                                                                            | `nil`                               |
+| `MONGODB_METRICS_PASSWORD`              | Password for the non-root user specified in MONGODB_METRICS_USERNAME                                                                           | `nil`                               |
+| `MONGODB_EXTRA_USERNAMES`               | Comma or semicolon separated list of extra users to be created.                                                                                | `nil`                               |
+| `MONGODB_EXTRA_PASSWORDS`               | Comma or semicolon separated list of passwords for the users specified in MONGODB_EXTRA_USERNAMES.                                             | `nil`                               |
+| `MONGODB_EXTRA_DATABASES`               | Comma or semicolon separated list of databases to create at initialization time for the users specified in MONGODB_EXTRA_USERNAMES.            | `nil`                               |
+| `ALLOW_EMPTY_PASSWORD`                  | Permit accessing MongoDB without setting any password                                                                                          | `no`                                |
+| `MONGODB_REPLICA_SET_MODE`              | MongoDB replica set mode. Can be one of primary, secondary or arbiter                                                                          | `nil`                               |
+| `MONGODB_REPLICA_SET_NAME`              | Name of the MongoDB replica set                                                                                                                | `$MONGODB_DEFAULT_REPLICA_SET_NAME` |
+| `MONGODB_REPLICA_SET_KEY`               | MongoDB replica set key                                                                                                                        | `nil`                               |
+| `MONGODB_INITIAL_PRIMARY_HOST`          | Hostname of the replica set primary node (necessary for arbiter and secondary nodes)                                                           | `nil`                               |
+| `MONGODB_INITIAL_PRIMARY_PORT_NUMBER`   | Port of the replica set primary node (necessary for arbiter and secondary nodes)                                                               | `27017`                             |
+| `MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD` | Primary node root user password (necessary for arbiter and secondary nodes)                                                                    | `nil`                               |
+| `MONGODB_INITIAL_PRIMARY_ROOT_USER`     | Primary node root username (necessary for arbiter and secondary nodes)                                                                         | `root`                              |
+| `MONGODB_SET_SECONDARY_OK`              | Mark node as readable. Necessary for cases where the PVC is lost                                                                               | `no`                                |
+| `MONGODB_DISABLE_ENFORCE_AUTH`          | By default, MongoDB authentication will be enforced. If set to true, MongoDB will not enforce authentication                                   | `false`                             |
 
 #### Read-only environment variables
 

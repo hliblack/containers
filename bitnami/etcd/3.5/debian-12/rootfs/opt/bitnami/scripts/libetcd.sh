@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright VMware, Inc.
+# Copyright Broadcom, Inc. All Rights Reserved.
 # SPDX-License-Identifier: APACHE-2.0
 #
 # Bitnami etcd library
@@ -100,7 +100,7 @@ etcd_setup_from_environment_variables() {
             fi
         fi
     done
-    if am_i_root; then
+    if am_i_root && [[ -f "$ETCD_CONF_FILE" ]] ; then
         chown "$ETCD_DAEMON_USER" "$ETCD_CONF_FILE"
     fi
 }

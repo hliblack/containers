@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright VMware, Inc.
+# Copyright Broadcom, Inc. All Rights Reserved.
 # SPDX-License-Identifier: APACHE-2.0
 
 # shellcheck disable=SC1091
@@ -17,7 +17,7 @@ set -o pipefail
 . /opt/bitnami/scripts/kafka-env.sh
 
 if [[ -f "${KAFKA_CONF_DIR}/kafka_jaas.conf" ]]; then
-    export KAFKA_OPTS="-Djava.security.auth.login.config=${KAFKA_CONF_DIR}/kafka_jaas.conf"
+    export KAFKA_OPTS="${KAFKA_OPTS:-} -Djava.security.auth.login.config=${KAFKA_CONF_DIR}/kafka_jaas.conf"
 fi
 
 cmd="$KAFKA_HOME/bin/kafka-server-start.sh"

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright VMware, Inc.
+# Copyright Broadcom, Inc. All Rights Reserved.
 # SPDX-License-Identifier: APACHE-2.0
 
 # shellcheck disable=SC1091
@@ -37,3 +37,7 @@ AddType application/x-httpd-php .php
 DirectoryIndex index.html index.htm index.php
 EOF
 ensure_apache_configuration_exists "Include \"${apache_php_conf_file}\""
+
+# Copy all initially generated configuration files to the default directory
+# (this is to avoid breaking when entrypoint is being overridden)
+cp -r "$APACHE_CONF_DIR"/* "$APACHE_DEFAULT_CONF_DIR"

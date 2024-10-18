@@ -23,7 +23,7 @@ docker run --name harbor-registry bitnami/harbor-registry:latest
 * All Bitnami images available in Docker Hub are signed with [Notation](https://notaryproject.dev/). [Check this post](https://blog.bitnami.com/2024/03/bitnami-packaged-containers-and-helm.html) to know how to verify the integrity of the images.
 * Bitnami container images are released on a regular basis with the latest distribution packages available.
 
-Looking to use Harbor Registry in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the enterprise edition of Bitnami Application Catalog.
+Looking to use Harbor Registry in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.
 
 ## How to deploy Harbor in Kubernetes?
 
@@ -33,11 +33,11 @@ Bitnami containers can be used with [Kubeapps](https://kubeapps.dev/) for deploy
 
 ## Why use a non-root container?
 
-Non-root container images add an extra layer of security and are generally recommended for production environments. However, because they run as a non-root user, privileged tasks are typically off-limits. Learn more about non-root containers [in our docs](https://docs.bitnami.com/tutorials/work-with-non-root-containers/).
+Non-root container images add an extra layer of security and are generally recommended for production environments. However, because they run as a non-root user, privileged tasks are typically off-limits. Learn more about non-root containers [in our docs](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-work-with-non-root-containers-index.html).
 
 ## Supported tags and respective `Dockerfile` links
 
-Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.bitnami.com/tutorials/understand-rolling-tags-containers/).
+Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-understand-rolling-tags-containers-index.html).
 
 You can see the equivalence between the different tags by taking a look at the `tags-info.yaml` file present in the branch folder, i.e `bitnami/ASSET/BRANCH/DISTRO/tags-info.yaml`.
 
@@ -55,19 +55,12 @@ For further information about the specific component itself, please refer to the
 
 #### Read-only environment variables
 
-| Name                             | Description                                                                | Value                                             |
-|----------------------------------|----------------------------------------------------------------------------|---------------------------------------------------|
-| `HARBOR_REGISTRY_BASE_DIR`       | harbor-registry installation directory.                                    | `${BITNAMI_ROOT_DIR}/harbor-registry`             |
-| `HARBOR_REGISTRY_VOLUME_DIR`     | harbor-registry volume directory.                                          | `${BITNAMI_VOLUME_DIR}/harbor-registry`           |
-| `HARBOR_REGISTRY_STORAGE_DIR`    | harbor-registry storage directory.                                         | `${HARBOR_REGISTRY_VOLUME_DIR}/storage`           |
-| `HARBOR_REGISTRY_STORAGE_DIR`    | harbor-registry storage directory.                                         | `/storage`                                        |
-| `HARBOR_REGISTRY_LOGS_DIR`       | harbor-registry logs directory.                                            | `${HARBOR_REGISTRY_BASE_DIR}/logs`                |
-| `HARBOR_REGISTRY_TMP_DIR`        | harbor-registry directory for temporary files.                             | `${HARBOR_REGISTRY_BASE_DIR}/tmp`                 |
-| `HARBOR_REGISTRY_DAEMON_USER`    | harbor-registry system user.                                               | `harbor`                                          |
-| `HARBOR_REGISTRY_DAEMON_GROUP`   | harbor-registry system group.                                              | `harbor`                                          |
-| `HARBOR_REGISTRY_PID_FILE`       | PID file for harbor-registry service.                                      | `${HARBOR_REGISTRY_TMP_DIR}/harbor-registry.pid`  |
-| `HARBOR_REGISTRY_LOG_FILE`       | Log file for harbor-registry service.                                      | `${HARBOR_REGISTRY_LOGS_DIR}/harbor-registry.log` |
-| `HARBOR_REGISTRY_EXTRA_ENV_FILE` | File to store extra environment variables for the harbor-registry service. | `${HARBOR_REGISTRY_BASE_DIR}/.env`                |
+| Name                           | Description                             | Value                                 |
+|--------------------------------|-----------------------------------------|---------------------------------------|
+| `HARBOR_REGISTRY_BASE_DIR`     | harbor-registry installation directory. | `${BITNAMI_ROOT_DIR}/harbor-registry` |
+| `HARBOR_REGISTRY_STORAGE_DIR`  | harbor-registry storage directory.      | `/storage`                            |
+| `HARBOR_REGISTRY_DAEMON_USER`  | harbor-registry system user.            | `harbor`                              |
+| `HARBOR_REGISTRY_DAEMON_GROUP` | harbor-registry system group.           | `harbor`                              |
 
 ## Notable Changes
 

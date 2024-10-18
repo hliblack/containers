@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright VMware, Inc.
+# Copyright Broadcom, Inc. All Rights Reserved.
 # SPDX-License-Identifier: APACHE-2.0
 #
 # Bitnami Kafka library
@@ -422,10 +422,6 @@ kafka_validate() {
     fi
     # Check KRaft mode
     if ! is_empty_value "${KAFKA_CFG_PROCESS_ROLES:-}"; then
-        # Raft
-        if [[ "$(kafka_get_version)" =~ ^3\.2\. ]]; then
-            warn "KRaft mode is not production-ready in Kafka 3.2, for production environments, we recommend upgrading "
-        fi
         # Only allow Zookeeper configuration if migration mode is enabled
         if ! is_empty_value "${KAFKA_CFG_ZOOKEEPER_CONNECT:-}" &&
             { is_empty_value "${KAFKA_CFG_ZOOKEEPER_METADATA_MIGRATION_ENABLE:-}" || ! is_boolean_yes "$KAFKA_CFG_ZOOKEEPER_METADATA_MIGRATION_ENABLE"; }; then
@@ -843,7 +839,7 @@ kafka_kraft_storage_initialize() {
         KAFKA_KRAFT_CLUSTER_ID="$("${KAFKA_HOME}/bin/kafka-storage.sh" random-uuid)"
         info "Generated Kafka cluster ID '${KAFKA_KRAFT_CLUSTER_ID}'"
     fi
-    args+=("--cluster-id" "$KAFKA_KRAFT_CLUSTER_ID")
+    args+=("--cluster-id=$KAFKA_KRAFT_CLUSTER_ID")
 
     # SCRAM users are configured during the cluster bootstrapping process and can later be manually updated using kafka-config.sh
     if is_boolean_yes "${KAFKA_KRAFT_BOOTSTRAP_SCRAM_USERS:-}"; then
@@ -1001,9 +997,15 @@ kafka_initialize() {
                     kafka_producer_consumer_conf_set security.protocol "$protocol"
                     kafka_producer_consumer_conf_set sasl.mechanism "${KAFKA_CLIENT_SASL_MECHANISM:-$(kafka_client_sasl_mechanism)}"
                 fi
-                kafka_configure_server_jaas "$listener_lower" "${role:-}"
+                # Configure inline listener jaas configuration, omitted if mounted JAAS conf file detected
+                if [[ ! -f "${KAFKA_CONF_DIR}/kafka_jaas.conf" ]]; then
+                    kafka_configure_server_jaas "$listener_lower" "${role:-}"
+                fi
             fi
         done
+        # Configure Kafka using environment variables
+        # This is executed at the end, to allow users to override properties set by the initialization logic
+        kafka_configure_from_environment_variables
     else
         info "Detected mounted server.properties file at ${KAFKA_MOUNTED_CONF_DIR}/server.properties. Skipping configuration based on env variables"
     fi

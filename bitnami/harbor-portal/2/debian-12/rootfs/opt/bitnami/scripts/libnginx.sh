@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright VMware, Inc.
+# Copyright Broadcom, Inc. All Rights Reserved.
 # SPDX-License-Identifier: APACHE-2.0
 #
 # Bitnami NGINX library
@@ -164,6 +164,11 @@ nginx_validate() {
 nginx_initialize() {
     info "Initializing NGINX"
 
+    # bypassing the setup.sh logic. If the file already exists do not overwrite (in
+    # case someone mounts a configuration file in /opt/bitnami/nginx/conf)
+    debug "Copying files from $NGINX_DEFAULT_CONF_DIR to $NGINX_CONF_DIR"
+    cp -nr "$NGINX_DEFAULT_CONF_DIR"/. "$NGINX_CONF_DIR" || true
+
     # This fixes an issue where the trap would kill the entrypoint.sh, if a PID was left over from a previous run
     # Exec replaces the process without creating a new one, and when the container is restarted it may have the same PID
     rm -f "${NGINX_TMP_DIR}/nginx.pid"
@@ -203,6 +208,15 @@ nginx_initialize() {
     fi
     nginx_configure "absolute_redirect" "$(is_boolean_yes "$NGINX_ENABLE_ABSOLUTE_REDIRECT" && echo "on" || echo "off" )"
     nginx_configure "port_in_redirect" "$(is_boolean_yes "$NGINX_ENABLE_PORT_IN_REDIRECT" && echo "on" || echo "off" )"
+    # Stream configuration
+    if is_boolean_yes "$NGINX_ENABLE_STREAM" && is_file_writable "$NGINX_CONF_FILE"; then
+        cat >> "$NGINX_CONF_FILE" <<EOF
+
+stream {
+    include  "${NGINX_STREAM_SERVER_BLOCKS_DIR}/*.conf";
+}
+EOF
+    fi
 }
 
 ########################

@@ -1,4 +1,4 @@
-# Copyright VMware, Inc.
+# Copyright Broadcom, Inc. All Rights Reserved.
 # SPDX-License-Identifier: APACHE-2.0
 
 FROM docker.io/bitnami/minideb:bookworm
@@ -7,13 +7,15 @@ ARG TARGETARCH
 
 LABEL com.vmware.cp.artifact.flavor="sha256:c50c90cfd9d12b445b011e6ad529f1ad3daea45c26d20b00732fae3cd71f6a83" \
       org.opencontainers.image.base.name="docker.io/bitnami/minideb:bookworm" \
-      org.opencontainers.image.created="2024-03-14T09:51:20Z" \
-      org.opencontainers.image.description="Application packaged by VMware, Inc" \
+      org.opencontainers.image.created="2024-10-05T07:25:31Z" \
+      org.opencontainers.image.description="Application packaged by Broadcom, Inc." \
+      org.opencontainers.image.documentation="https://github.com/bitnami/containers/tree/main/bitnami/fluentd/README.md" \
       org.opencontainers.image.licenses="Apache-2.0" \
-      org.opencontainers.image.ref.name="1.16.4-debian-12-r0" \
+      org.opencontainers.image.ref.name="1.17.1-debian-12-r3" \
+      org.opencontainers.image.source="https://github.com/bitnami/containers/tree/main/bitnami/fluentd" \
       org.opencontainers.image.title="fluentd" \
-      org.opencontainers.image.vendor="VMware, Inc." \
-      org.opencontainers.image.version="1.16.4"
+      org.opencontainers.image.vendor="Broadcom, Inc." \
+      org.opencontainers.image.version="1.17.1"
 
 ENV HOME="/" \
     OS_ARCH="${TARGETARCH:-amd64}" \
@@ -26,8 +28,8 @@ SHELL ["/bin/bash", "-o", "errexit", "-o", "nounset", "-o", "pipefail", "-c"]
 RUN install_packages ca-certificates curl libcrypt1 libgcc-s1 libjemalloc-dev libreadline-dev libreadline8 libssl-dev libssl3 libstdc++6 libtinfo6 libyaml-dev procps sqlite3 zlib1g
 RUN mkdir -p /tmp/bitnami/pkg/cache/ ; cd /tmp/bitnami/pkg/cache/ ; \
     COMPONENTS=( \
-      "ruby-3.1.4-5-linux-${OS_ARCH}-debian-12" \
-      "fluentd-1.16.4-0-linux-${OS_ARCH}-debian-12" \
+      "ruby-3.1.6-1-linux-${OS_ARCH}-debian-12" \
+      "fluentd-1.17.1-0-linux-${OS_ARCH}-debian-12" \
     ) ; \
     for COMPONENT in "${COMPONENTS[@]}"; do \
       if [ ! -f "${COMPONENT}.tar.gz" ]; then \
@@ -46,7 +48,7 @@ RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
 
 COPY rootfs /
 RUN /opt/bitnami/scripts/fluentd/postunpack.sh
-ENV APP_VERSION="1.16.4" \
+ENV APP_VERSION="1.17.1" \
     BITNAMI_APP_NAME="fluentd" \
     GEM_HOME="/opt/bitnami/fluentd" \
     PATH="/opt/bitnami/ruby/bin:/opt/bitnami/fluentd/bin:$PATH"

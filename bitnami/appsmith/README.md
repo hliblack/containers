@@ -22,11 +22,11 @@ docker run -it --name appsmith bitnami/appsmith:latest
 * All Bitnami images available in Docker Hub are signed with [Notation](https://notaryproject.dev/). [Check this post](https://blog.bitnami.com/2024/03/bitnami-packaged-containers-and-helm.html) to know how to verify the integrity of the images.
 * Bitnami container images are released on a regular basis with the latest distribution packages available.
 
-Looking to use Appsmith in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the enterprise edition of Bitnami Application Catalog.
+Looking to use Appsmith in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.
 
 ## Supported tags and respective `Dockerfile` links
 
-Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.bitnami.com/tutorials/understand-rolling-tags-containers/).
+Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-understand-rolling-tags-containers-index.html).
 
 You can see the equivalence between the different tags by taking a look at the `tags-info.yaml` file present in the branch folder, i.e `bitnami/ASSET/BRANCH/DISTRO/tags-info.yaml`.
 
@@ -104,7 +104,7 @@ docker-compose up appsmith
 |---------------------------------|---------------------------------------------------------|-----------------------|
 | `ALLOW_EMPTY_PASSWORD`          | Allow an empty password.                                | `no`                  |
 | `APPSMITH_USERNAME`             | Appsmith default username.                              | `user`                |
-| `APPSMITH_PASSWORD`             | Appsmith default password.                              | `bitnami`             |
+| `APPSMITH_PASSWORD`             | Appsmith default password.                              | `bitnami123`          |
 | `APPSMITH_EMAIL`                | Appsmith default email.                                 | `user@example.com`    |
 | `APPSMITH_MODE`                 | Appsmith service to run (can be backend, client or UI). | `backend`             |
 | `APPSMITH_ENCRYPTION_PASSWORD`  | Appsmith database encryption password.                  | `bitnami123`          |

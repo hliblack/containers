@@ -24,7 +24,7 @@ docker run --name moodle bitnami/moodle:latest
 * All Bitnami images available in Docker Hub are signed with [Notation](https://notaryproject.dev/). [Check this post](https://blog.bitnami.com/2024/03/bitnami-packaged-containers-and-helm.html) to know how to verify the integrity of the images.
 * Bitnami container images are released on a regular basis with the latest distribution packages available.
 
-Looking to use Bitnami LMS powered by Moodle&trade; LMS in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the enterprise edition of Bitnami Application Catalog.
+Looking to use Bitnami LMS powered by Moodle&trade; LMS in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.
 
 ## How to deploy Moodle&trade; in Kubernetes?
 
@@ -34,7 +34,7 @@ Bitnami containers can be used with [Kubeapps](https://kubeapps.dev/) for deploy
 
 ## Supported tags and respective `Dockerfile` links
 
-Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.bitnami.com/tutorials/understand-rolling-tags-containers/).
+Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-understand-rolling-tags-containers-index.html).
 
 You can see the equivalence between the different tags by taking a look at the `tags-info.yaml` file present in the branch folder, i.e `bitnami/ASSET/BRANCH/DISTRO/tags-info.yaml`.
 
@@ -199,20 +199,29 @@ docker run -d --name moodle \
 |-------------------------------|------------------------------------------------------------------------------------------------------------------------------|------------------------------------|
 | `MOODLE_DATA_DIR`             | Directory where to store Moodle data files.                                                                                  | `${BITNAMI_VOLUME_DIR}/moodledata` |
 | `MOODLE_DATA_TO_PERSIST`      | Files to persist relative to the Moodle installation directory. To provide multiple values, separate them with a whitespace. | `$MOODLE_BASE_DIR`                 |
+| `MOODLE_SKIP_BOOTSTRAP`       | Whether to perform initial bootstrapping for the application.                                                                | `nil`                              |
+| `MOODLE_INSTALL_EXTRA_ARGS`   | Extra arguments to pass to the Moodle install.php script.                                                                    | `nil`                              |
 | `MOODLE_SITE_NAME`            | Moodle site name.                                                                                                            | `New Site`                         |
+| `MOODLE_HOST`                 | Moodle www root.                                                                                                             | `nil`                              |
 | `MOODLE_CRON_MINUTES`         | Moodle cron frequency in minutes.                                                                                            | `1`                                |
 | `MOODLE_REVERSEPROXY`         | Activate the reverseproxy feature of Moodle.                                                                                 | `no`                               |
 | `MOODLE_SSLPROXY`             | Activate the sslproxy feature of Moodle.                                                                                     | `no`                               |
 | `MOODLE_LANG`                 | Allow to define default site language                                                                                        | `en`                               |
 | `MOODLE_USERNAME`             | Moodle user name.                                                                                                            | `user`                             |
 | `MOODLE_PASSWORD`             | Moodle user password.                                                                                                        | `bitnami`                          |
+| `MOODLE_DATABASE_MIN_VERSION` | Change database minimum version because of an issue with Azure Database for MariaDB.                                         | `nil`                              |
 | `MOODLE_EMAIL`                | Moodle user e-mail address.                                                                                                  | `user@example.com`                 |
+| `MOODLE_SMTP_HOST`            | Moodle SMTP server host.                                                                                                     | `nil`                              |
+| `MOODLE_SMTP_PORT_NUMBER`     | Moodle SMTP server port number.                                                                                              | `nil`                              |
+| `MOODLE_SMTP_USER`            | Moodle SMTP server user.                                                                                                     | `nil`                              |
+| `MOODLE_SMTP_PASSWORD`        | Moodle SMTP server user password.                                                                                            | `nil`                              |
+| `MOODLE_SMTP_PROTOCOL`        | Moodle SMTP server protocol.                                                                                                 | `nil`                              |
 | `MOODLE_DATABASE_TYPE`        | Database type to be used for the Moodle installation.                                                                        | `mariadb`                          |
 | `MOODLE_DATABASE_HOST`        | Database server host.                                                                                                        | `mariadb`                          |
-| `MOODLE_DATABASE_HOST`        | Database server host.                                                                                                        | `127.0.0.1`                        |
 | `MOODLE_DATABASE_PORT_NUMBER` | Database server port.                                                                                                        | `3306`                             |
 | `MOODLE_DATABASE_NAME`        | Database name.                                                                                                               | `bitnami_moodle`                   |
 | `MOODLE_DATABASE_USER`        | Database user name.                                                                                                          | `bn_moodle`                        |
+| `MOODLE_DATABASE_PASSWORD`    | Database user password.                                                                                                      | `nil`                              |
 
 #### Read-only environment variables
 

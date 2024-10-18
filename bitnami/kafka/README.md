@@ -22,7 +22,7 @@ docker run --name kafka bitnami/kafka:latest
 * All Bitnami images available in Docker Hub are signed with [Notation](https://notaryproject.dev/). [Check this post](https://blog.bitnami.com/2024/03/bitnami-packaged-containers-and-helm.html) to know how to verify the integrity of the images.
 * Bitnami container images are released on a regular basis with the latest distribution packages available.
 
-Looking to use Apache Kafka in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the enterprise edition of Bitnami Application Catalog.
+Looking to use Apache Kafka in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.
 
 ## How to deploy Apache Kafka in Kubernetes?
 
@@ -32,11 +32,11 @@ Bitnami containers can be used with [Kubeapps](https://kubeapps.dev/) for deploy
 
 ## Why use a non-root container?
 
-Non-root container images add an extra layer of security and are generally recommended for production environments. However, because they run as a non-root user, privileged tasks are typically off-limits. Learn more about non-root containers [in our docs](https://docs.bitnami.com/tutorials/work-with-non-root-containers/).
+Non-root container images add an extra layer of security and are generally recommended for production environments. However, because they run as a non-root user, privileged tasks are typically off-limits. Learn more about non-root containers [in our docs](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-work-with-non-root-containers-index.html).
 
 ## Supported tags and respective `Dockerfile` links
 
-Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.bitnami.com/tutorials/understand-rolling-tags-containers/).
+Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-understand-rolling-tags-containers-index.html).
 
 You can see the equivalence between the different tags by taking a look at the `tags-info.yaml` file present in the branch folder, i.e `bitnami/ASSET/BRANCH/DISTRO/tags-info.yaml`.
 
@@ -330,7 +330,7 @@ And expose the external port:
 +     - '9094:9094'
 ```
 
-**Note**: To connect from an external machine, change `localhost` above to your host's external IP/hostname and include `EXTERNAL://0.0.0.0:9093` in `KAFKA_CFG_LISTENERS` to allow for remote connections.
+**Note**: To connect from an external machine, change `localhost` above to your host's external IP/hostname and include `EXTERNAL://0.0.0.0:9094` in `KAFKA_CFG_LISTENERS` to allow for remote connections.
 
 #### Producer and consumer using external client
 
@@ -403,24 +403,29 @@ services:
     ports:
       - '9092'
     environment:
+      # KRaft
       - KAFKA_CFG_NODE_ID=0
       - KAFKA_CFG_PROCESS_ROLES=controller,broker
       - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
+      # Listeners
       - KAFKA_CFG_LISTENERS=SASL_SSL://:9092,CONTROLLER://:9093
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:SASL_PLAINTEXT,SASL_SSL:SASL_SSL
       - KAFKA_CFG_ADVERTISED_LISTENERS=SASL_SSL://:9092
-      - KAFKA_CLIENT_USERS=user
-      - KAFKA_CLIENT_PASSWORDS=password
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=SASL_SSL
+      - KAFKA_CLIENT_LISTENER_NAME=SASL_SSL # Remove this line if consumer/producer.properties are not required
+      # SASL
       - KAFKA_CFG_SASL_MECHANISM_CONTROLLER_PROTOCOL=PLAIN
+      - KAFKA_CFG_SASL_MECHANISM_INTER_BROKER_PROTOCOL=PLAIN
       - KAFKA_CONTROLLER_USER=controller_user
       - KAFKA_CONTROLLER_PASSWORD=controller_password
-      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=SASL_SSL
-      - KAFKA_CFG_SASL_MECHANISM_INTER_BROKER_PROTOCOL=PLAIN
-      - KAFKA_INTER_BROKER_USER=controller_user
-      - KAFKA_INTER_BROKER_PASSWORD=controller_password
-      - KAFKA_CERTIFICATE_PASSWORD=certificatePassword123
+      - KAFKA_INTER_BROKER_USER=interbroker_user
+      - KAFKA_INTER_BROKER_PASSWORD=interbroker_password
+      - KAFKA_CLIENT_USERS=user
+      - KAFKA_CLIENT_PASSWORDS=password
+      # SSL
       - KAFKA_TLS_TYPE=JKS # or PEM
+      - KAFKA_CERTIFICATE_PASSWORD=certificatePassword123
     volumes:
       # Both .jks and .pem files are supported
       # - './kafka.keystore.pem:/opt/bitnami/kafka/config/certs/kafka.keystore.pem:ro'

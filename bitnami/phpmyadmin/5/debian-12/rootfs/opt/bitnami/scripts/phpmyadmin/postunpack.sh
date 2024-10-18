@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright VMware, Inc.
+# Copyright Broadcom, Inc. All Rights Reserved.
 # SPDX-License-Identifier: APACHE-2.0
 
 # shellcheck disable=SC1090,SC1091
@@ -23,7 +23,7 @@ set -o pipefail
 . /opt/bitnami/scripts/libphp.sh
 . /opt/bitnami/scripts/libphpmyadmin.sh
 
-# Load web server environment and functions (after MediaWiki environment file so MODULE is not set to a wrong value)
+# Load web server environment and functions (after phpMyAdmin environment file so MODULE is not set to a wrong value)
 . "/opt/bitnami/scripts/$(web_server_type)-env.sh"
 
 # Enable phpMyAdmin configuration file
@@ -59,3 +59,7 @@ info "Configuring default PHP options for phpMyAdmin"
 php_conf_set upload_max_filesize "$PHP_DEFAULT_UPLOAD_MAX_FILESIZE"
 php_conf_set post_max_size "$PHP_DEFAULT_POST_MAX_SIZE"
 php_conf_set memory_limit "$PHP_DEFAULT_MEMORY_LIMIT"
+
+# Copy all initially generated configuration files to the default directory
+# (this is to avoid breaking when entrypoint is being overridden)
+cp -r "/opt/bitnami/$(web_server_type)/conf"/* "/opt/bitnami/$(web_server_type)/conf.default"

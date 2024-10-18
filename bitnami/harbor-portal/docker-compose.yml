@@ -1,7 +1,5 @@
-# Copyright VMware, Inc.
+# Copyright Broadcom, Inc. All Rights Reserved.
 # SPDX-License-Identifier: APACHE-2.0
-
-version: '2'
 
 services:
   registry:
@@ -90,12 +88,12 @@ services:
       - jobservice_data:/var/log/jobs
       - ./config/jobservice/config.yml:/etc/jobservice/config.yml:ro
   redis:
-    image: docker.io/bitnami/redis:7.0
+    image: docker.io/bitnami/redis:7.4
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
   harbor-nginx:
-    image: docker.io/bitnami/nginx:1.25
+    image: docker.io/bitnami/nginx:1.27
     container_name: nginx
     volumes:
       - ./config/proxy/nginx.conf:/opt/bitnami/nginx/conf/nginx.conf:ro

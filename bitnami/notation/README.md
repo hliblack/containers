@@ -22,11 +22,11 @@ docker run -it --name notation bitnami/notation
 * All Bitnami images available in Docker Hub are signed with [Notation](https://notaryproject.dev/). [Check this post](https://blog.bitnami.com/2024/03/bitnami-packaged-containers-and-helm.html) to know how to verify the integrity of the images.
 * Bitnami container images are released on a regular basis with the latest distribution packages available.
 
-Looking to use Notation in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the enterprise edition of Bitnami Application Catalog.
+Looking to use Notation in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.
 
 ## Supported tags and respective `Dockerfile` links
 
-Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.bitnami.com/tutorials/understand-rolling-tags-containers/).
+Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-understand-rolling-tags-containers-index.html).
 
 You can see the equivalence between the different tags by taking a look at the `tags-info.yaml` file present in the branch folder, i.e `bitnami/ASSET/BRANCH/DISTRO/tags-info.yaml`.
 
@@ -96,7 +96,7 @@ You can import a custom configuration by setting a volume pointing to `/.config`
 
 ```console
 docker run -v $(pwd)/config:/.config bitnami/notation key ls
-NAME              KEY PATH                                        CERTIFICATE PATH                                ID   PLUGIN NAME   
+NAME              KEY PATH                                        CERTIFICATE PATH                                ID   PLUGIN NAME
 * my-domain.com   /.config/notation/localkeys/my-domain.com.key   /.config/notation/localkeys/my-domain.com.crt
 ```
 
@@ -152,8 +152,8 @@ Confirm the signing key and certificate are correctly configured:
 
 ```console
 docker run -v $(pwd)/config:/.config bitnami/notation key ls
-NAME              KEY PATH                                        CERTIFICATE PATH                                ID   PLUGIN NAME   
-* my-domain.com   /.config/notation/localkeys/my-domain.com.key   /.config/notation/localkeys/my-domain.com.crt                      
+NAME              KEY PATH                                        CERTIFICATE PATH                                ID   PLUGIN NAME
+* my-domain.com   /.config/notation/localkeys/my-domain.com.key   /.config/notation/localkeys/my-domain.com.crt
 
 docker run -v $(pwd)/config:/.config bitnami/notation cert ls
 /.config/notation/truststore/x509/ca/my-domain.com/my-domain.com.crt

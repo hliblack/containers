@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright VMware, Inc.
+# Copyright Broadcom, Inc. All Rights Reserved.
 # SPDX-License-Identifier: APACHE-2.0
 
 # shellcheck disable=SC1091
@@ -78,9 +78,9 @@ ssl.client.authentication = NONE
 ##
 inter.instance.protocol = http
 
-## The Avro compatibility type
+## The Schema compatibility type
 ##
-avro.compatibility.level = backward
+schema.compatibility.level = backward
 
 ## Enable debug logs
 ##
@@ -92,7 +92,7 @@ EOF
 rm "$SCHEMA_REGISTRY_CONF_FILE"
 schema_registry_create_default_configuration
 # Ensure directories used by Schema Registry exist and have proper ownership and permissions
-for dir in "$SCHEMA_REGISTRY_CONF_DIR" "$SCHEMA_REGISTRY_DEFAULT_CONF_DIR" "$SCHEMA_REGISTRY_LOGS_DIR" "$SCHEMA_REGISTRY_CERTS_DIR"; do
+for dir in "$SCHEMA_REGISTRY_CONF_DIR" "$SCHEMA_REGISTRY_DEFAULT_CONF_DIR" "$SCHEMA_REGISTRY_LOGS_DIR" "$SCHEMA_REGISTRY_CERTS_DIR" "$SCHEMA_REGISTRY_MOUNTED_CONF_DIR"; do
     ensure_dir_exists "$dir"
     chmod -R g+rwX "$dir"
 done

@@ -24,7 +24,7 @@ You can find the available configuration options in the [Environment Variables](
 * All Bitnami images available in Docker Hub are signed with [Notation](https://notaryproject.dev/). [Check this post](https://blog.bitnami.com/2024/03/bitnami-packaged-containers-and-helm.html) to know how to verify the integrity of the images.
 * Bitnami container images are released on a regular basis with the latest distribution packages available.
 
-Looking to use HashiCorp Consul in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the enterprise edition of Bitnami Application Catalog.
+Looking to use HashiCorp Consul in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.
 
 ## How to deploy HashiCorp Consul in Kubernetes?
 
@@ -34,11 +34,11 @@ Bitnami containers can be used with [Kubeapps](https://kubeapps.dev/) for deploy
 
 ## Why use a non-root container?
 
-Non-root container images add an extra layer of security and are generally recommended for production environments. However, because they run as a non-root user, privileged tasks are typically off-limits. Learn more about non-root containers [in our docs](https://docs.bitnami.com/tutorials/work-with-non-root-containers/).
+Non-root container images add an extra layer of security and are generally recommended for production environments. However, because they run as a non-root user, privileged tasks are typically off-limits. Learn more about non-root containers [in our docs](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-work-with-non-root-containers-index.html).
 
 ## Supported tags and respective `Dockerfile` links
 
-Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.bitnami.com/tutorials/understand-rolling-tags-containers/).
+Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-understand-rolling-tags-containers-index.html).
 
 You can see the equivalence between the different tags by taking a look at the `tags-info.yaml` file present in the branch folder, i.e `bitnami/ASSET/BRANCH/DISTRO/tags-info.yaml`.
 
@@ -278,26 +278,31 @@ volumes:
 
 #### Customizable environment variables
 
-| Name                            | Description                      | Default Value |
-|---------------------------------|----------------------------------|---------------|
-| `CONSUL_RPC_PORT_NUMBER`        | Consul RPC port number.          | `8300`        |
-| `CONSUL_HTTP_PORT_NUMBER`       | Consul RPC port number.          | `8500`        |
-| `CONSUL_DNS_PORT_NUMBER`        | Consul DNS port number.          | `8600`        |
-| `CONSUL_DNS_PORT_NUMBER`        | Consul DNS port number.          | `8600`        |
-| `CONSUL_AGENT_MODE`             | Consul agent mode.               | `server`      |
-| `CONSUL_DISABLE_KEYRING_FILE`   | Disable keyring file in Consul.  | `false`       |
-| `CONSUL_SERF_LAN_ADDRESS`       | LAN address for Serf daemon.     | `0.0.0.0`     |
-| `CONSUL_SERF_LAN_PORT_NUMBER`   | LAN port for Serf daemon.        | `8301`        |
-| `CONSUL_CLIENT_LAN_ADDRESS`     | LAN address for Consul clients.  | `0.0.0.0`     |
-| `CONSUL_RETRY_JOIN_ADDRESS`     | Consul node retry join address.  | `127.0.0.1`   |
-| `CONSUL_RETRY_JOIN_WAN_ADDRESS` | Consul retry join WAN address.   | `127.0.0.1`   |
-| `CONSUL_ENABLE_UI`              | Enable User Interface in Consul. | `true`        |
-| `CONSUL_BOOTSTRAP_EXPECT`       | Expect bootstrap in Consul.      | `1`           |
-| `CONSUL_RAFT_MULTIPLIER`        | Consul Raft multiplier.          | `1`           |
-| `CONSUL_GOSSIP_ENCRYPTION`      | Use gossip encryption in Consul. | `no`          |
-| `CONSUL_DATACENTER`             | Consul datacenter name.          | `dc1`         |
-| `CONSUL_DOMAIN`                 | Consul domain.                   | `consul`      |
-| `CONSUL_DISABLE_HOST_NODE_ID`   | Disable host node ID.            | `true`        |
+| Name                            | Description                                         | Default Value |
+|---------------------------------|-----------------------------------------------------|---------------|
+| `CONSUL_RPC_PORT_NUMBER`        | Consul RPC port number.                             | `8300`        |
+| `CONSUL_HTTP_PORT_NUMBER`       | Consul RPC port number.                             | `8500`        |
+| `CONSUL_DNS_PORT_NUMBER`        | Consul DNS port number.                             | `8600`        |
+| `CONSUL_DNS_PORT_NUMBER`        | Consul DNS port number.                             | `8600`        |
+| `CONSUL_AGENT_MODE`             | Consul agent mode.                                  | `server`      |
+| `CONSUL_DISABLE_KEYRING_FILE`   | Disable keyring file in Consul.                     | `false`       |
+| `CONSUL_SERF_LAN_ADDRESS`       | LAN address for Serf daemon.                        | `0.0.0.0`     |
+| `CONSUL_SERF_LAN_PORT_NUMBER`   | LAN port for Serf daemon.                           | `8301`        |
+| `CONSUL_CLIENT_LAN_ADDRESS`     | LAN address for Consul clients.                     | `0.0.0.0`     |
+| `CONSUL_RETRY_JOIN_ADDRESS`     | Consul node retry join address.                     | `127.0.0.1`   |
+| `CONSUL_RETRY_JOIN_WAN_ADDRESS` | Consul retry join WAN address.                      | `127.0.0.1`   |
+| `CONSUL_BIND_INTERFACE`         | Consul bind interface.                              | `nil`         |
+| `CONSUL_BIND_ADDR`              | Consul bind address.                                | `nil`         |
+| `CONSUL_ENABLE_UI`              | Enable User Interface in Consul.                    | `true`        |
+| `CONSUL_BOOTSTRAP_EXPECT`       | Expect bootstrap in Consul.                         | `1`           |
+| `CONSUL_RAFT_MULTIPLIER`        | Consul Raft multiplier.                             | `1`           |
+| `CONSUL_LOCAL_CONFIG`           | Consul local configuration.                         | `nil`         |
+| `CONSUL_GOSSIP_ENCRYPTION`      | Use gossip encryption in Consul.                    | `no`          |
+| `CONSUL_GOSSIP_ENCRYPTION_KEY`  | Base64-encoded Consul gossip private symmetric key. | `nil`         |
+| `CONSUL_DATACENTER`             | Consul datacenter name.                             | `dc1`         |
+| `CONSUL_DOMAIN`                 | Consul domain.                                      | `consul`      |
+| `CONSUL_NODE_NAME`              | Consul domain name.                                 | `nil`         |
+| `CONSUL_DISABLE_HOST_NODE_ID`   | Disable host node ID.                               | `true`        |
 
 #### Read-only environment variables
 

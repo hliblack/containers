@@ -24,7 +24,7 @@ docker run --name keycloak bitnami/keycloak:latest
 * All Bitnami images available in Docker Hub are signed with [Notation](https://notaryproject.dev/). [Check this post](https://blog.bitnami.com/2024/03/bitnami-packaged-containers-and-helm.html) to know how to verify the integrity of the images.
 * Bitnami container images are released on a regular basis with the latest distribution packages available.
 
-Looking to use Keycloak in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the enterprise edition of Bitnami Application Catalog.
+Looking to use Keycloak in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.
 
 ## How to deploy Keycloak in Kubernetes?
 
@@ -32,11 +32,11 @@ Deploying Bitnami applications as Helm Charts is the easiest way to get started 
 
 ## Why use a non-root container?
 
-Non-root container images add an extra layer of security and are generally recommended for production environments. However, because they run as a non-root user, privileged tasks are typically off-limits. Learn more about non-root containers [in our docs](https://docs.bitnami.com/tutorials/work-with-non-root-containers/).
+Non-root container images add an extra layer of security and are generally recommended for production environments. However, because they run as a non-root user, privileged tasks are typically off-limits. Learn more about non-root containers [in our docs](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-work-with-non-root-containers-index.html).
 
 ## Supported tags and respective `Dockerfile` links
 
-Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.bitnami.com/tutorials/understand-rolling-tags-containers/).
+Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-understand-rolling-tags-containers-index.html).
 
 You can see the equivalence between the different tags by taking a look at the `tags-info.yaml` file present in the branch folder, i.e `bitnami/ASSET/BRANCH/DISTRO/tags-info.yaml`.
 
@@ -73,6 +73,7 @@ docker build -t bitnami/APP:latest .
 | Name                                                        | Description                                                                                           | Default Value                 |
 |-------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|-------------------------------|
 | `KEYCLOAK_MOUNTED_CONF_DIR`                                 | Directory for including custom configuration files (that override the default generated ones)         | `${KEYCLOAK_VOLUME_DIR}/conf` |
+| `KC_RUN_IN_CONTAINER`                                       | Keycloak kc.sh context                                                                                | `true`                        |
 | `KEYCLOAK_ADMIN`                                            | Keycloak administrator user                                                                           | `user`                        |
 | `KEYCLOAK_ADMIN_PASSWORD`                                   | Keycloak administrator password                                                                       | `bitnami`                     |
 | `KEYCLOAK_HTTP_RELATIVE_PATH`                               | Set the path relative to "/" for serving resources.                                                   | `/`                           |
@@ -80,9 +81,12 @@ docker build -t bitnami/APP:latest .
 | `KEYCLOAK_HTTPS_PORT`                                       | HTTPS port                                                                                            | `8443`                        |
 | `KEYCLOAK_BIND_ADDRESS`                                     | Bind address                                                                                          | `$(hostname --fqdn)`          |
 | `KEYCLOAK_HOSTNAME`                                         | Keycloak hostname                                                                                     | `nil`                         |
+| `KEYCLOAK_HOSTNAME_ADMIN`                                   | Keycloak admin hostname                                                                               | `nil`                         |
+| `KEYCLOAK_HOSTNAME_STRICT`                                  | Disables dynamically resolving the hostname from request headers                                      | `false`                       |
 | `KEYCLOAK_INIT_MAX_RETRIES`                                 | Maximum retries for checking that the database works                                                  | `10`                          |
 | `KEYCLOAK_CACHE_TYPE`                                       | Defines the cache mechanism for high-availability.                                                    | `ispn`                        |
 | `KEYCLOAK_CACHE_STACK`                                      | Apply a specific cache stack                                                                          | `nil`                         |
+| `KEYCLOAK_CACHE_CONFIG_FILE`                                | Path to the cache config file                                                                         | `nil`                         |
 | `KEYCLOAK_EXTRA_ARGS`                                       | Add extra startup parameters to keycloak                                                              | `nil`                         |
 | `KEYCLOAK_ENABLE_STATISTICS`                                | Enable metrics for the database                                                                       | `false`                       |
 | `KEYCLOAK_ENABLE_HEALTH_ENDPOINTS`                          | Enable health endpoints                                                                               | `false`                       |
@@ -100,7 +104,7 @@ docker build -t bitnami/APP:latest .
 | `KEYCLOAK_LOG_LEVEL`                                        | Keycloak log level                                                                                    | `info`                        |
 | `KEYCLOAK_LOG_OUTPUT`                                       | Keycloak log output                                                                                   | `default`                     |
 | `KEYCLOAK_ROOT_LOG_LEVEL`                                   | Keycloak root log level                                                                               | `INFO`                        |
-| `KEYCLOAK_PROXY`                                            | Keycloak type proxy                                                                                   | `passthrough`                 |
+| `KEYCLOAK_PROXY_HEADERS`                                    | Keycloak reverse proxy headers                                                                        | `nil`                         |
 | `KEYCLOAK_PRODUCTION`                                       | Run in production mode                                                                                | `false`                       |
 | `KEYCLOAK_EXTRA_ARGS_PREPENDED`                             | Run with flags which are applied directly to keycloak executable                                      | `nil`                         |
 | `KEYCLOAK_DATABASE_VENDOR`                                  | Database vendor                                                                                       | `postgresql`                  |

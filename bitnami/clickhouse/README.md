@@ -22,7 +22,7 @@ docker run --name clickhouse bitnami/clickhouse:latest
 * All Bitnami images available in Docker Hub are signed with [Notation](https://notaryproject.dev/). [Check this post](https://blog.bitnami.com/2024/03/bitnami-packaged-containers-and-helm.html) to know how to verify the integrity of the images.
 * Bitnami container images are released on a regular basis with the latest distribution packages available.
 
-Looking to use ClickHouse in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the enterprise edition of Bitnami Application Catalog.
+Looking to use ClickHouse in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.
 
 ## How to deploy ClickHouse in Kubernetes?
 
@@ -32,7 +32,7 @@ Bitnami containers can be used with [Kubeapps](https://kubeapps.dev/) for deploy
 
 ## Supported tags and respective `Dockerfile` links
 
-Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.bitnami.com/tutorials/understand-rolling-tags-containers/).
+Learn more about the Bitnami tagging policy and the difference between rolling tags and immutable tags [in our documentation page](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-understand-rolling-tags-containers-index.html).
 
 You can see the equivalence between the different tags by taking a look at the `tags-info.yaml` file present in the branch folder, i.e `bitnami/ASSET/BRANCH/DISTRO/tags-info.yaml`.
 
@@ -197,6 +197,7 @@ In order to have your custom files inside the docker image you can mount them as
 |------------------------------------|-------------------------------|---------------|
 | `ALLOW_EMPTY_PASSWORD`             | Allow an empty password.      | `no`          |
 | `CLICKHOUSE_ADMIN_USER`            | ClickHouse admin username.    | `default`     |
+| `CLICKHOUSE_ADMIN_PASSWORD`        | ClickHouse admin password.    | `nil`         |
 | `CLICKHOUSE_HTTP_PORT`             | ClickHouse HTTP port.         | `8123`        |
 | `CLICKHOUSE_TCP_PORT`              | ClickHouse TCP port.          | `9000`        |
 | `CLICKHOUSE_MYSQL_PORT`            | ClickHouse MySQL port.        | `9004`        |
